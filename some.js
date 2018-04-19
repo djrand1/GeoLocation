@@ -1,39 +1,18 @@
-  navigator.geolocation.getCurrentPosition(showPosition);
+var locations = " :O"
+$.ajax({
+    url: "https://geoip-db.com/jsonp",
+    jsonpCallback: "callback",
+    dataType: "jsonp",
+    success: function( location ) {
+        $('#country').html(location.country_name);
+        $('#state').html(location.state);
+        $('#city').html(location.city);
+        $('#latitude').html(location.latitude);
+        $('#longitude').html(location.longitude);
+        $('#ip').html(location.IPv4);
 
-//var loc = document.getElementById("myLoc");
-var loc;
-function myLocation(){
-  geolocation.clearWatch();
-  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(showPosition);
+        locations = location.cty;
 
-  }
-  else{
-    loc.innerHTML ="location not possible :/";
-  }
-
-}
-
-function showPosition(position){
-  //loc = document.getElementById("myLoc").innerHTML = "Longitude " + position.coords.longitude + "<br>Latitude" + position.coords.latitude +"<br>";
-  loc = "Longitude " + position.coords.longitude + "<br>Latitude" + position.coords.latitude +"<br>";
-  console.log(loc); //logging the result
-}
-
-
-
-//proto for loyalty
-
-var userLOYTOTAL = 0;// counter for how many purchases made by the user
-
-var userLoyalty ;//percentage to be applied
-/*
-  Function accepts three parameters
-  the usersid, the total number of purchases till first loyalty is met and will be doubled
-  and lastly the percentage the user gets off
-*/
-function Royals(userID,userLOYTOTAL,userLoyalty){
-  this.userID = userID;
-  this.userLOYTOTAL = userLOYTOTAL;
-  this.userLoyalty = userLoyalty;
-}
+        document.body.innerHTML = location.city
+    }
+});
